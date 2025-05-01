@@ -219,7 +219,6 @@ const getProductByName = catchAsync(async (req, res, next) => {
         ]
     });
 
-    console.log('data Avail', dataAvailable);
     if(!dataAvailable) {
         return next(new AppError('Product not found', 404));
     }

@@ -2,6 +2,7 @@ const { Model } = require("sequelize");
 const { product, productSupplier, supplier, Sequelize } = require("../db/models");
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
+const { groupTheSameCapitalCostSupplier } = require("../utils/util");
 
 const addProductStock = catchAsync(async (req, res, next) => {
     const body = req.body;
@@ -68,10 +69,12 @@ const getProductSupplierById = catchAsync(async (req, res, next) => {
         return next(new AppError('Stock not found', 404));
     }
 
+    const lastResult = groupTheSameCapitalCostSupplier(result) 
+
     return res.json({
         status: 'success',
         message: 'Stock data fetch successfully',
-        data: result
+        data: lastResult
     });
 });
 

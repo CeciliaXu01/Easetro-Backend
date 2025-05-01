@@ -49,4 +49,25 @@ function calculateProductSellingPriceRangeNStock(product, plainProduct) {
     };
 }
 
-module.exports = { calculateProductSellingPriceRangeNStock };
+function groupTheSameCapitalCostSupplier(data) {
+    const grouped = {};
+
+    data.forEach(item => {
+        const key = `${item.supplierId}-${item.capitalCost}`;
+        const supplier = item.supplier.toJSON();
+
+        if (!grouped[key]) {
+            grouped[key] = { 
+                capitalCost: item.capitalCost,
+                stock: item.stock,
+                supplier
+            };
+        } else {
+            grouped[key].stock += item.stock;
+        }
+    });
+
+    return Object.values(grouped);
+}
+
+module.exports = { calculateProductSellingPriceRangeNStock, groupTheSameCapitalCostSupplier };

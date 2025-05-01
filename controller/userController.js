@@ -50,13 +50,12 @@ const editUser = catchAsync(async (req, res, next) => {
     const { id } = req.user;
     const body = req.body;
     const result = await user.findByPk(id);
-    const image = req.file ? req.file.filename : null
 
     if(!result) {
         return next(new AppError('User not found', 404));
     }
 
-    if(image) {
+    if(req.file) {
         const uploaded = await uploadImageToCloudinary(req.file.buffer);
         result.image = uploaded.secure_url;
     }
