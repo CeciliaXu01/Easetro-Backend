@@ -99,7 +99,7 @@ const editProduct = catchAsync(async (req, res, next) => {
         message: 'Product has been updated successfully',
         data: editedResult
     });
-});
+});z
 
 const searchProductByName = catchAsync(async (req, res, next) => {
     const sellerId = req.user.id;

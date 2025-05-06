@@ -126,7 +126,7 @@ const createTransaction = catchAsync(async (req, res, next) => {
                 }
             } 
 
-            if(unitPrice > minPrice) {
+            else {
                 const useQty = Math.min(stock.stock, remainingQty);
                 const unitProfit = unitPrice - stock.capitalCost;
                 const profitSum = unitProfit * useQty;
