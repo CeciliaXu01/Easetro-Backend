@@ -164,8 +164,16 @@ const createTransaction = catchAsync(async (req, res, next) => {
         throw new AppError('Invalid transaction status', 400);
     }
 
+    const lastTransaction = await transaction.findOne({
+        where: { userId },
+        order: [['invoice', 'DESC']]
+    });
+
+    const invoiceNum = lastTransaction ? lastTransaction.invoice + 1 : 1;
+
     const newTransaction = await transaction.create({
         userId,
+        invoice: invoiceNum,
         salesDate,
         buyerName,
         buyerPhoneNumber,

@@ -7,6 +7,7 @@ const createSupplier = catchAsync(async (req, res, next) => {
     const sellerId = req.user.id;
     const checkExistingSupplier = await supplier.findOne({
         where: {
+            sellerId,
             supplierName: {
                 [Sequelize.Op.iLike]: body.supplierName
             }

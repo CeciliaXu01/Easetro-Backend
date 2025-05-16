@@ -9,6 +9,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      invoice: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        unique: true
+      },
       user_id: {
         type: Sequelize.INTEGER,
         allowNull: false,

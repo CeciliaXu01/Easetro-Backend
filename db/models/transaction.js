@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER
       },
+      invoice: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
       userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
