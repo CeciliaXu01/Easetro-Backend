@@ -8,6 +8,14 @@ const createProduct = catchAsync(async (req, res, next) => {
     const body = req.body;
     const sellerId = req.user.id;
     let imageUrl = null;
+    const productName = await product.findOne({
+        where: {
+            sellerId,
+            productName: {
+                [Sequelize.Op.iLike]: body.productName
+            }
+        }
+    });
     const productCategory = await category.findOne({
         where: {
             categoryName: {
@@ -34,6 +42,9 @@ const createProduct = catchAsync(async (req, res, next) => {
         const uploaded = await uploadImageToCloudinary(req.file.buffer);
         imageUrl = uploaded.secure_url;
     }
+    if(productName) {
+        return next(new AppError('Product name already exists', 409));
+    }
     if(!productCategory) {
         return next(new AppError('Category not found', 404));
     }
@@ -55,7 +66,7 @@ const createProduct = catchAsync(async (req, res, next) => {
     });
 
     if(productExists) {
-        return next(new AppError('Product already exists', 409));
+        return next(new AppError('A product with the same name, category, brand, and model/type already exists', 409));
     }
 
     const newProduct = await product.create({
