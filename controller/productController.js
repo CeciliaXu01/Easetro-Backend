@@ -55,6 +55,19 @@ const createProduct = catchAsync(async (req, res, next) => {
         return next(new AppError('Model/type not found', 404));
     }
 
+    const productExist = await product.findOne({
+        where: {
+            sellerId,
+            productCategoryId: productCategory.id,
+            brandId: productBrand.id,
+            modelTypeId: productModelType.id
+        }
+    });
+
+    if(productExist) {
+        return next(new AppError('A product with the same category, brand, and model/type already exists', 409));
+    }
+
     const productExists = await product.findOne({
         where: {
             sellerId,
