@@ -8,7 +8,6 @@ const createProduct = catchAsync(async (req, res, next) => {
     const body = req.body;
     const sellerId = req.user.id;
     let imageUrl = null;
-    const productName = await product.findOne({where: {sellerId, productName: body.productName}});
     const productCategory = await category.findOne({
         where: {
             categoryName: {
@@ -35,9 +34,6 @@ const createProduct = catchAsync(async (req, res, next) => {
         const uploaded = await uploadImageToCloudinary(req.file.buffer);
         imageUrl = uploaded.secure_url;
     }
-    if(productName) {
-        return next(new AppError('Product already exists', 409));
-    }
     if(!productCategory) {
         return next(new AppError('Category not found', 404));
     }
@@ -46,6 +42,20 @@ const createProduct = catchAsync(async (req, res, next) => {
     }
     if(!productModelType) {
         return next(new AppError('Model/type not found', 404));
+    }
+
+    const productExists = await product.findOne({
+        where: {
+            sellerId,
+            productName: body.productName,
+            productCategoryId: productCategory.id,
+            brandId: productBrand.id,
+            modelTypeId: productModelType.id
+        }
+    });
+
+    if(productExists) {
+        return next(new AppError('Product already exists', 409));
     }
 
     const newProduct = await product.create({
