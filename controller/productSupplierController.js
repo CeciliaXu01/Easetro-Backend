@@ -59,6 +59,7 @@ const getProductSupplierById = catchAsync(async (req, res, next) => {
             sellerId,
             stock: { [Sequelize.Op.ne]: '0' }
         },
+        order: [['capital_cost', 'ASC']],
         include: [{
             model: supplier,
             attributes: ['supplier_name']
