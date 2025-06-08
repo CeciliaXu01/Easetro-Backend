@@ -271,24 +271,20 @@ const getProductByName = catchAsync(async (req, res, next) => {
 const getProductByModel = catchAsync(async (req, res, next) => {
     const { modelTypeName } = req.query;
     const sellerId = req.user.id;
-    const modelAvailable = await modelType.findAll({where: {modelTypeName}});
+    const modelAvailable = await modelType.findOne({where: {modelTypeName}});
 
-    if(!modelAvailable || modelAvailable.length === 0) {
+    if(!modelAvailable) {
         return next(new AppError('No product match the model/type', 404));
     }
-
-    const modelTypeIds = modelAvailable.map((model) => model.id);
 
     const result = await product.findAll({
         where: {
             sellerId,
-            modelTypeId: {
-                [Sequelize.Op.in]: modelTypeIds
-            }
+            modelTypeId: modelAvailable.id
         }
     });
 
-    if(!result) {
+    if(!result || result.length === 0) {
         return next(new AppError('Product not found', 404));
     }
 
