@@ -72,7 +72,7 @@ This project uses **PostgreSQL** as its relational database to store and manage 
 |`/seeders`|Seed data for initial setup (development) or testing|
 
 ## API Documentation
-API documentation is provided via a **Postman Collection** for easy integration and testing.\
+API documentation is provided via a **Postman Collection** for easy integration and testing.
 
 [Postman Collection Link](https://www.postman.com/material-meteorologist-80258729/easetro-ta-xc/collection/peyonu8/easetro-backend?action=share&source=copy-link&creator=43378825)\
 \
