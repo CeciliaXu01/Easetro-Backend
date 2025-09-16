@@ -3,14 +3,10 @@ This is the Github repository for **Easetro Backend**, which handles the server-
 
 ## Table of Contents :bookmark_tabs:
 - [Table of Contents](#table-of-contents-bookmark_tabs)
-- [Features](#features)
 - [Installation](#installation)
 - [Environment Configuration](#environment-configuration)
 - [Database](#database)
 - [API Documentation](#api-documentation)
-
-## Features
-
 
 ## Installation 
 To install and set up this project, follow the steps below:
@@ -76,5 +72,21 @@ This project uses **PostgreSQL** as its relational database to store and manage 
 |`/seeders`|Seed data for initial setup (development) or testing|
 
 ## API Documentation
-API documentation is provided via a **Postman Collection** for easy integration and testing.
+API documentation is provided via a **Postman Collection** for easy integration and testing.\
+
+[Postman Collection Link](https://www.postman.com/material-meteorologist-80258729/easetro-ta-xc/collection/peyonu8/easetro-backend?action=share&source=copy-link&creator=43378825)\
+\
+This Postman collection contains API endpoints configured to use a local server (e.g., `http://localhost:5000`).
+
+> [!NOTE]  
+> - The endpoints themselves are generic and can work with any deployment of this API.  
+> - However, the URLs are currently set to your local environment.  
+> - If you want to use this collection, please update the **Base URL** in Postman to point to your own deployed API URL.
+
+You can import the Postman collection and modify the URLs as needed to test your own deployment.
+
+**Base URL (local):** `http://localhost:5000`
+
+> [!TIP] 
+> Ensure your server is running locally before making requests with the default URLs.
 
